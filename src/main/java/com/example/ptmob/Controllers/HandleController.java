@@ -3,6 +3,7 @@ package com.example.ptmob.Controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.example.ptmob.NotFoundExceptionClass;
 import com.example.ptmob.Response;
 
 @ControllerAdvice
@@ -27,5 +29,11 @@ public class HandleController {
         });
 
         return new Response(HttpStatus.BAD_REQUEST, "validation error", map);
+    }
+
+    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    @ResponseBody
+    public Response handleNotFoundException(NotFoundExceptionClass ex) {
+        return new Response(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage());
     }
 }
