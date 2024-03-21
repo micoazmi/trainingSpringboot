@@ -48,4 +48,31 @@ public class NewsService {
 
     }
 
+    public News update(Long id, NewsDto dto) throws NotFoundExceptionClass {
+        News news = newsRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundExceptionClass("News not found"));
+        Category category = categoryRepository
+                .findById(dto.getCategoryId())
+                .orElseThrow(() -> new NotFoundExceptionClass("Category Not found"));
+        Author author = authorRepository
+                .findById(dto.getAuthorId())
+                .orElseThrow(() -> new NotFoundExceptionClass("Author Not Found"));
+
+        news.setTitle(dto.getTitle());
+        news.setContent(dto.getContent());
+        news.setAuthor(author);
+        news.setCategory(category);
+        news.setIsPublished(dto.getIs_published());
+        return newsRepository.save(news);
+
+    }
+
+    public void delete(Long id) throws NotFoundExceptionClass {
+        News news = newsRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundExceptionClass("News not found"));
+        newsRepository.delete(news);
+    }
+
 }

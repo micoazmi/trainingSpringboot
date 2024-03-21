@@ -24,6 +24,7 @@ public class CategoryService {
         categoryRepository.findById(id).ifPresent(item -> {
             item.setName(category.getName());
             item.setDescription(category.getDescription());
+            categoryRepository.save(item);
         });
     }
 
