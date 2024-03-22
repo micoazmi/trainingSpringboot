@@ -1,6 +1,9 @@
 package com.example.ptmob.Models.Dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -13,13 +16,16 @@ public class NewsDto {
     @NotBlank(message = "content is required")
     private String content;
 
-    @NotBlank(message = "categoryId is required")
+    @JsonAlias("category_id")
+    @NotNull(message = "categoryId is required")
     private Long categoryId;
 
-    @NotBlank(message = "authorId is required")
+    @JsonAlias("author_id")
+    @NotNull(message = "authorId is required")
     private Long authorId;
 
-    @NotBlank(message = "is_published is required")
-    private Boolean is_published;
+    @JsonAlias("is_published")
+    @NotNull(message = "is_published is required")
+    private Boolean isPublished;
 
 }

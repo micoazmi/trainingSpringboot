@@ -29,7 +29,7 @@ public class News {
     private String title;
     private String content;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -38,7 +38,7 @@ public class News {
     private Author author;
 
     @CreationTimestamp
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private String created_at;
 
     @Column(name = "is_published")
