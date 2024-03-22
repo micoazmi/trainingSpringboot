@@ -1,7 +1,6 @@
 package com.example.ptmob.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +28,12 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping("")
-    public Response getAll() {
-        return new Response(HttpStatus.OK, "getAll News", newsService.list());
+    public Response getAll(@RequestParam(value = "search", required = false) String keyword) {
+        if (keyword != null) {
+            return new Response(HttpStatus.OK, "berhasil search", newsService.search(keyword));
+        } else {
+            return new Response(HttpStatus.OK, "getAll News", newsService.list());
+        }
     }
 
     @PostMapping("")

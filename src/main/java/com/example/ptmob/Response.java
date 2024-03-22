@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;;
 
 public class Response extends ResponseEntity<Map<String, Object>> {
     private final HttpStatus status;
